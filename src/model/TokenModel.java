@@ -10,7 +10,7 @@ public class TokenModel
 	 */
 	public enum State 
 	{ 
-		EMPTY("./img/emptySlot.png"), YELLOW("./img/yellowSlot.png"), RED("./img/redSlot.png");
+		EMPTY("src/images/emptySlot.png"), YELLOW("src/images/yellowSlot.png"), RED("src/images/redSlot.png");
 		private String value;
 		private State(String value)
 		{
