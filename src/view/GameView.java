@@ -34,6 +34,10 @@ public class GameView extends JFrame
 	
 	private BoardController controller;
 
+	/**
+	 * Constructeur de GameView. Initialise la fenêtre de jeu.
+	 * @param controller Le BoardController du jeu
+	 */
 	public GameView(BoardController controller)
 	{
 		this.setTitle("Connect4");
@@ -53,13 +57,16 @@ public class GameView extends JFrame
 		
 	}
 
+	/**
+	 * Crée la barre de menu en haut de la fenêtre
+	 */
 	private void createMenu()
 	{
 		JMenuBar menuBar = new JMenuBar();
 		JMenu gameMenu = new JMenu("Game");
 		JMenuItem resignMenuItem = new JMenuItem("Resign");
 		resignMenuItem.addActionListener(new ResignActionHandler());
-		JMenuItem settingMenu = new JMenuItem("Setting");
+		JMenuItem settingMenu = new JMenuItem("Settings");
 		settingMenu.addActionListener(new SettingActionHandler());
 		gameMenu.add(settingMenu);
 		gameMenu.add(resignMenuItem);
@@ -74,6 +81,11 @@ public class GameView extends JFrame
 		this.setJMenuBar(menuBar);
 	}
 
+	/**
+	 * Initialise le tableau de jeu (les boutons et les cases).
+	 * @param nbRows Nombre de rangées voulues
+	 * @param nbColumns Nombre de colonnes voulues
+	 */
 	public void initBoard(int nbRows, int nbColumns)
 	{
 		this.message.setText("Joueur " + controller.GetCurrentPlayer());
@@ -107,6 +119,10 @@ public class GameView extends JFrame
 		this.revalidate();
 	}
 
+	/**
+	 * Gère la fin du jeu. Fait s'afficher une fenêtre avec un message personnalisé
+	 * @param message Message voulu
+	 */
 	private void endGame(String message)
 	{
 		int reply = JOptionPane.showConfirmDialog(null, message, "Rejouer?", JOptionPane.YES_NO_OPTION);
@@ -120,11 +136,19 @@ public class GameView extends JFrame
 	    }
 	}
 	
+	/**
+	 * Actualise le tableau graphique de jeu avec le dernier jeton ajouté.
+	 * @param rowIndex Rangée où le jeton a été ajouté
+	 * @param columnIndex Colonne où le jeton a été ajouté
+	 */
 	private void refreshView(int rowIndex, int columnIndex)
 	{
 		this.placeHolders[rowIndex][columnIndex].setImageIcon(new ImageIcon(this.controller.getBoardModel().getBoard()[rowIndex][columnIndex].getState().getValue()));
 	}
 	
+	/**
+	 * Paramètre de la fenêtre principale
+	 */
 	private void configureWindow()
 	{
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -134,6 +158,10 @@ public class GameView extends JFrame
 		setLocation(((screenSize.width - getWidth()) / 2), ((screenSize.height - getHeight()) / 2));
 	}
 
+	/**
+	 * Classe qui gère les boutons d'ajout de jeton.
+	 *
+	 */
 	private class ButtonHandler implements ActionListener
 	{
 		private final int columnIndex;
@@ -169,6 +197,9 @@ public class GameView extends JFrame
 		}
 	}
 
+	/**
+	 * Classe qui gère le bouton Resign du menu
+	 */
 	private class ResignActionHandler implements ActionListener
 	{
 		@Override
@@ -179,6 +210,9 @@ public class GameView extends JFrame
 		}
 	}
 	
+	/**
+	 * Classe qui gère le bouton Settings du menu
+	 */
 	private class SettingActionHandler implements ActionListener
 	{
 		@Override
@@ -190,6 +224,9 @@ public class GameView extends JFrame
 		}
 	}
 
+	/**
+	 * Classe qui gère le bouton About du menu
+	 */
 	private class AboutActionHandler implements ActionListener
 	{
 		@Override

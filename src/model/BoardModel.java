@@ -3,7 +3,6 @@ package model;
 /**
  * La classe BoardModel représente un tableau de jeu remplie de jetons vides
  *  avec le hauteur et la largeur voulue.
- * @author  Francis Chandonnet
  */
 public class BoardModel 
 {

@@ -89,9 +89,7 @@ public class MenuView extends JDialog
 	
 	/**
 	 * Méthode qui modifie les champs textes pour que les settings concordent avec le jeu.
-	 * @param nbJettonLong -int, nombre maximum de jeton sur le long
-	 * @param nbJettonLarge -int, nombre maximum de jeton sur le long
-	 * @param nbJettonColler -int, nombre de jeton pour gagner la partie
+	 * @param settings Tableau contenant les 3 settings: Hauteur, largeur et nombre de jeton d'affiler pour gagner
 	 */
 	public void SetMenu(int[] settings)
 	{
@@ -110,7 +108,7 @@ public class MenuView extends JDialog
 	}
 	
 	/**
-	 * Class privé qui est un ActionListener pour le bouton Commencer
+	 * Classe privée qui est un ActionListener pour le bouton Commencer
 	 */
 	private class SaveNewSettings implements ActionListener
 	{
@@ -128,6 +126,10 @@ public class MenuView extends JDialog
 		}
 	}	
 	
+	/**
+	 * Retourne les settings
+	 * @return Les settings du jeu
+	 */
 	public int[] GetSettings()
 	{
 		return this.settings;

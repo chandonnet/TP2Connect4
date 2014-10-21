@@ -2,7 +2,6 @@ package model;
 
 /**
  * Cette classe modèle représente un jeton dans le jeu
- * @author Robin
  */
 public class TokenModel 
 {
@@ -38,7 +37,7 @@ public class TokenModel
 	
 	/**
 	 * Constructeur qui initialise les propriétés du jeton selon les valeurs passées en paramètres
-	 * @param state
+	 * @param state État par défaut voulu
 	 */
 	public TokenModel(State state)
 	{
@@ -47,7 +46,7 @@ public class TokenModel
 
 	/**
 	 * Retourne l'état du jeton
-	 * @return state
+	 * @return state Retourne l'état du jeton voulu
 	 */
 	public State getState() 
 	{
@@ -56,7 +55,7 @@ public class TokenModel
 
 	/**
 	 * Change l'état du jeton
-	 * @param state
+	 * @param state État voulu
 	 */
 	public void setState(State state) 
 	{
