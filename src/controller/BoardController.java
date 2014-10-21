@@ -33,7 +33,7 @@ public class BoardController
 		return x;
 	}
 	
-	private int findColumnHeight(int columnIndex)
+	public int findColumnHeight(int columnIndex)
 	{
 		for (int i = this.settings[0] - 1; i >= 0; i--)
 		{
