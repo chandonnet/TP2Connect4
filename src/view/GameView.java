@@ -70,6 +70,10 @@ public class GameView extends JFrame
 		resignMenuItem.addActionListener(new ResignActionHandler());
 		JMenuItem settingMenu = new JMenuItem("Settings");
 		settingMenu.addActionListener(new SettingActionHandler());
+		this.reverseMenuItem = new JMenuItem("Reverse Action");
+		this.reverseMenuItem.addActionListener(new ReverseActionHandler());
+		this.reverseMenuItem.setEnabled(false);
+		gameMenu.add(this.reverseMenuItem);
 		gameMenu.add(settingMenu);
 		gameMenu.add(resignMenuItem);
 		menuBar.add(gameMenu);
@@ -79,11 +83,6 @@ public class GameView extends JFrame
 		aboutMenuItem.addActionListener(new AboutActionHandler());
 		helpMenu.add(aboutMenuItem);
 		menuBar.add(helpMenu);
-		
-		this.reverseMenuItem = new JMenuItem("Reverse Action");
-		this.reverseMenuItem.addActionListener(new AboutActionHandler());
-		this.reverseMenuItem.setEnabled(false);
-		menuBar.add(this.reverseMenuItem);
 
 		this.setJMenuBar(menuBar);
 	}
@@ -132,7 +131,7 @@ public class GameView extends JFrame
 	 */
 	private void endGame(String message)
 	{
-		int reply = JOptionPane.showConfirmDialog(null, message, "Rejouer?", JOptionPane.YES_NO_OPTION);
+		int reply = JOptionPane.showConfirmDialog(null, message + " Voulez vous rejouez ?", "Fin de partie", JOptionPane.YES_NO_OPTION);
 	    if (reply == JOptionPane.NO_OPTION || reply == JOptionPane.CLOSED_OPTION)
 	    {
 	      System.exit(0);
