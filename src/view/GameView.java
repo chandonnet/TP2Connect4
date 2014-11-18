@@ -126,7 +126,7 @@ public class GameView extends JFrame
 	private void endGame(String message)
 	{
 		int reply = JOptionPane.showConfirmDialog(null, message, "Rejouer?", JOptionPane.YES_NO_OPTION);
-	    if (reply == JOptionPane.NO_OPTION)
+	    if (reply == JOptionPane.NO_OPTION || reply == JOptionPane.CLOSED_OPTION)
 	    {
 	      System.exit(0);
 	    }
