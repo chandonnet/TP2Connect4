@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.PositionReverse;
 import model.TokenModel.State;
 import controller.BoardController;
 
@@ -26,6 +27,7 @@ public class GameView extends JFrame
 	private static final long serialVersionUID = 1L;
 
 	private JButton[] controlButtons;
+	private JMenuItem reverseMenuItem;
 
 	private MyImageContainer[][] placeHolders;
 
@@ -77,6 +79,11 @@ public class GameView extends JFrame
 		aboutMenuItem.addActionListener(new AboutActionHandler());
 		helpMenu.add(aboutMenuItem);
 		menuBar.add(helpMenu);
+		
+		this.reverseMenuItem = new JMenuItem("Reverse Action");
+		this.reverseMenuItem.addActionListener(new AboutActionHandler());
+		this.reverseMenuItem.setEnabled(false);
+		menuBar.add(this.reverseMenuItem);
 
 		this.setJMenuBar(menuBar);
 	}
@@ -188,6 +195,7 @@ public class GameView extends JFrame
 					message.setText("Joueur " + controller.GetCurrentPlayer());
 				}
 				refreshView(rowIndex, columnIndex);
+				reverseMenuItem.setEnabled(true);
 				
 				if (controller.IsBoardFull())
 				{
@@ -233,6 +241,24 @@ public class GameView extends JFrame
 		public void actionPerformed(ActionEvent arg0)
 		{
 			JOptionPane.showMessageDialog(GameView.this, "GUI for Connect4\n420-520-SF TP1\n\nAuthor: François Gagnon", "About", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	/**
+	 * Classe qui gère le bouton Reverse Action du menu
+	 */
+	private class ReverseActionHandler implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent arg0)
+		{
+			PositionReverse position = controller.revertPlay();
+			refreshView(position.GetX(), position.GetY());
+			
+			if (position.IsLastInStack())
+			{
+				reverseMenuItem.setEnabled(false);
+			}
 		}
 	}
 
