@@ -1,8 +1,12 @@
 package controller;
 
+import java.awt.Point;
+
 import view.GameView;
 import view.MenuView;
 import model.BoardModel;
+import model.PositionReverse;
+import model.PreviousPlaysModel;
 import model.TokenModel.State;
 
 /**
@@ -17,6 +21,7 @@ public class BoardController
 	private State currentPlayer = State.RED;
 	private int[] settings;
 	private int nbTokens;
+	private PreviousPlaysModel lastPlays;
 	
 	/**
 	 * Constructeur du BoardController. Initialise les vues GameView et MenuView, reçoit les
@@ -32,10 +37,11 @@ public class BoardController
 		
 		this.boardModel = new BoardModel(this.settings[0], this.settings[1]);
 		this.gameView.initBoard(this.settings[0], this.settings[1]);
+		this.lastPlays = new PreviousPlaysModel();
 	}
 	
 	/**
-	 * Classe permettant d'ajouter logiquement un jeton (changer l'état de celui-ci) dans 
+	 * Fonction permettant d'ajouter logiquement un jeton (changer l'état de celui-ci) dans 
 	 * le tableau de jeu.
 	 * @param columnIndex La colonne où le jeton doit être ajouté
 	 * @return La rangée à laquelle le jeton a été ajouté
@@ -44,7 +50,26 @@ public class BoardController
 	{
 		int x = findColumnHeight(columnIndex);
 		this.boardModel.getBoard()[x][columnIndex].setState(this.currentPlayer);
+		this.lastPlays.AddPlay(new PositionReverse(x, columnIndex));
 		return x;
+	}
+	
+	/**
+	 * Fonction permettant d'annuler le dernier coup jouer.
+	 * @return La position du jeton à modifier
+	 */
+	public PositionReverse revertPlay()
+	{
+		PositionReverse pointToRevert = this.lastPlays.ReversePlay();
+		
+		if (pointToRevert == null)
+		{
+			return null;
+		}
+		
+		this.boardModel.getBoard()[pointToRevert.GetX()][pointToRevert.GetY()].setState(State.EMPTY);
+		
+		return pointToRevert;
 	}
 	
 	/**

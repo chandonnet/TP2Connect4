@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.PositionReverse;
 import model.TokenModel.State;
 import controller.BoardController;
 
@@ -26,6 +27,7 @@ public class GameView extends JFrame
 	private static final long serialVersionUID = 1L;
 
 	private JButton[] controlButtons;
+	private JMenuItem reverseMenuItem;
 
 	private MyImageContainer[][] placeHolders;
 
@@ -68,6 +70,10 @@ public class GameView extends JFrame
 		resignMenuItem.addActionListener(new ResignActionHandler());
 		JMenuItem settingMenu = new JMenuItem("Settings");
 		settingMenu.addActionListener(new SettingActionHandler());
+		this.reverseMenuItem = new JMenuItem("Reverse Action");
+		this.reverseMenuItem.addActionListener(new ReverseActionHandler());
+		this.reverseMenuItem.setEnabled(false);
+		gameMenu.add(this.reverseMenuItem);
 		gameMenu.add(settingMenu);
 		gameMenu.add(resignMenuItem);
 		menuBar.add(gameMenu);
@@ -125,7 +131,7 @@ public class GameView extends JFrame
 	 */
 	private void endGame(String message)
 	{
-		int reply = JOptionPane.showConfirmDialog(null, message, "Rejouer?", JOptionPane.YES_NO_OPTION);
+		int reply = JOptionPane.showConfirmDialog(null, message + " Voulez vous rejouez ?", "Fin de partie", JOptionPane.YES_NO_OPTION);
 	    if (reply == JOptionPane.NO_OPTION || reply == JOptionPane.CLOSED_OPTION)
 	    {
 	      System.exit(0);
@@ -188,6 +194,7 @@ public class GameView extends JFrame
 					message.setText("Joueur " + controller.GetCurrentPlayer());
 				}
 				refreshView(rowIndex, columnIndex);
+				reverseMenuItem.setEnabled(true);
 				
 				if (controller.IsBoardFull())
 				{
@@ -233,6 +240,24 @@ public class GameView extends JFrame
 		public void actionPerformed(ActionEvent arg0)
 		{
 			JOptionPane.showMessageDialog(GameView.this, "GUI for Connect4\n420-520-SF TP1\n\nAuthor: François Gagnon", "About", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	/**
+	 * Classe qui gère le bouton Reverse Action du menu
+	 */
+	private class ReverseActionHandler implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent arg0)
+		{
+			PositionReverse position = controller.revertPlay();
+			refreshView(position.GetX(), position.GetY());
+			
+			if (position.IsLastInStack())
+			{
+				reverseMenuItem.setEnabled(false);
+			}
 		}
 	}
 
